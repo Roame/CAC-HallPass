@@ -34,6 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
     //Test comment for github
     
-    //Kirin, can you see this?
+    //Kirin, can you see this? test
 
 }
