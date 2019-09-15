@@ -11,27 +11,10 @@ import java.time.Instant;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button passBtn;
-    private Intent createPass;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        createPass = new Intent(this, PassAuthActivity.class);
-
-        passBtn = findViewById(R.id.PassCreateBtn);
-        passBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(createPass);
-            }
-        });
-
-
-
-
 
     }
 }
