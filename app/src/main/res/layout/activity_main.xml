@@ -10,17 +10,24 @@
     <FrameLayout
         android:id="@+id/top_container"
         android:layout_width="match_parent"
-        android:layout_height="100dp"/>
+        android:layout_height="100dp"
+        android:background="#505160"/>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="fill_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Test"/>
+        <FrameLayout
+            android:layout_width="100dp"
+            android:layout_height="fill_parent"
+            android:background="#68829E"/>
 
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#AEBD38"/>
 
+    <!-- Color palette: https://www.canva.com/learn/100-color-combinations/ (#4)-->
 
     </LinearLayout>
 
