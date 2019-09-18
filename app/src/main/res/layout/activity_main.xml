@@ -18,11 +18,13 @@
         android:layout_height="fill_parent">
 
         <FrameLayout
+            android:id="@+id/side_container"
             android:layout_width="100dp"
             android:layout_height="fill_parent"
             android:background="#68829E"/>
 
         <FrameLayout
+            android:id="@+id/fragment_display"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="#AEBD38"/>
