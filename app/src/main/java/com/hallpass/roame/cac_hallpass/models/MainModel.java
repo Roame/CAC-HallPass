@@ -8,20 +8,20 @@ import com.hallpass.roame.cac_hallpass.fragments.NavBarFragment;
 import com.hallpass.roame.cac_hallpass.fragments.PassFormFragment;
 
 public class MainModel extends ViewModel {
-    Fragment cFragment = new HomePageFragment();
-    int test =0;
 
-    public NavBarFragment NBFragment;
-    public HomePageFragment HomeFragment;
-    public PassFormFragment PSFragment;
+    public Fragment NBFragment = new NavBarFragment();
+    public Fragment HomeFragment = new HomePageFragment();
+    public Fragment PSFragment = new PassFormFragment();
 
-    public MainModel(){
-        initFragments();
+    public Fragment cFragment = HomeFragment;
+
+
+    public Fragment getcFragment(){
+        return cFragment;
     }
 
-    public void initFragments(){
-        NBFragment = new NavBarFragment();
-        HomeFragment = new HomePageFragment();
-        PSFragment = new PassFormFragment();
+    public void setcFragment(Fragment nFragment){
+        cFragment = nFragment;
     }
+
 }
