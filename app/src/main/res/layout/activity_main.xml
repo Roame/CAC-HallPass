@@ -8,30 +8,36 @@
     tools:context=".MainActivity">
 
     <FrameLayout
-        android:id="@+id/top_container"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="#505160"/>
+        android:layout_height="75dp"
+        android:background="#ffffff"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="fill_parent">
-
-        <FrameLayout
-            android:id="@+id/side_container"
-            android:layout_width="100dp"
-            android:layout_height="fill_parent"
-            android:background="#68829E"/>
+        android:layout_height="575dp"
+        android:padding="16dp"
+        android:background="#ffffff"
+        android:clipToPadding="false">
 
         <FrameLayout
             android:id="@+id/fragment_display"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="#AEBD38"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rounded_border"
+            android:elevation="15dp"
+            android:padding="8dp">
+
+        </FrameLayout>
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/nav_container"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:background="#68829E"/>
 
     <!-- Color palette: https://www.canva.com/learn/100-color-combinations/ (#4)-->
-
-    </LinearLayout>
 
 
 
