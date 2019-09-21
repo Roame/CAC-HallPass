@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CAC-HallPass</string>
+    <string name="test">Hello blank fragment</string>
 </resources>

@@ -1,39 +1,97 @@
 package com.hallpass.roame.cac_hallpass;
 
+import android.arch.lifecycle.ViewModelProviders;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import com.hallpass.roame.cac_hallpass.models.MainModel;
 
-    TextView textTest;
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class MainActivity extends AppCompatActivity implements FragCommunication{
+
+    private MainModel mViewModel;
+    private View decorView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textTest = findViewById(R.id.test_textView);
-
-        Button test = (Button) findViewById(R.id.test_button);
-        test.setOnClickListener(new View.OnClickListener() {
+        //decorView is slightly bugged right now. Hides the phone's nav bar well, but maybe a little too well
+        decorView = getWindow().getDecorView();
+        decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener(){
             @Override
-            public void onClick(View v) {
-                updateText();
+            public void onSystemUiVisibilityChange(int visibility) {
+                setupWindow();
             }
         });
+
+        setupWindow(); //Prevents the phone's nav bar from getting in the way
+
+
+        mViewModel = ViewModelProviders.of(this).get(MainModel.class);
+
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.top_bar_container, mViewModel.HFragment)
+                .replace(R.id.nav_container, mViewModel.NBFragment)
+                .replace(R.id.fragment_display, mViewModel.cFragment)
+                .commit();
+    }
+
+    private void setupWindow(){
+        final int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                | View.SYSTEM_UI_FLAG_IMMERSIVE;
+
+
+        //" ... it's more like a big ball of wibbly wobbly... time-y wimey... stuff."
+        final Handler handler = new Handler();
+        Timer timer = new Timer();
+
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        decorView.setSystemUiVisibility(uiOptions);
+                    }
+                });
+            }
+        };
+
+        timer.schedule(task, 1000);
     }
 
 
 
 
-    public void updateText(){
-        textTest.setText("Not yee-haw hours.");
+
+    @Override
+    public void navSelection(String selected) {
+        switch(selected){
+            case "pass":
+                mViewModel.setcFragment(mViewModel.PSFragment);
+                break;
+
+            case "settings":
+                mViewModel.setcFragment(mViewModel.SFragment);
+                break;
+
+            default:
+                mViewModel.setcFragment(mViewModel.HomeFragment);
+                break;
+        }
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_display, mViewModel.cFragment)
+                .commit();
     }
-
-    //Test comment for github
-    
-    //1 2 Oatmeal
-
 }
