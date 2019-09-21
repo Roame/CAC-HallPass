@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:background="#ffffff">
+    android:gravity="center_horizontal">
 
     <TextView
         android:layout_width="wrap_content"
@@ -12,16 +11,14 @@
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
         android:layout_margin="16dp"
-        android:textSize="24dp"
-        android:textColor="@android:color/black"
-        android:text="Welcome to the home page!"/>
+        android:textSize="32dp"
+        android:text="Welcome!"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:textSize="16dp"
-        android:textColor="@android:color/black"
-        android:text="How's it goin'?"/>
+        android:layout_margin="20dp"
+        android:textSize="20dp"
+        android:text="      [insert app name] is an app designed to help regulate the movement of students, both in and outside of the classroom."/>
 
 </LinearLayout>

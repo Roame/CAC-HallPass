@@ -8,6 +8,7 @@
     tools:context=".MainActivity">
 
     <FrameLayout
+        android:id="@+id/top_bar_container"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:background="#ffffff"/>
@@ -35,7 +36,7 @@
         android:id="@+id/nav_container"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:background="#68829E"/>
+        android:background="#999999"/>
 
     <!-- Color palette: https://www.canva.com/learn/100-color-combinations/ (#4)-->
 

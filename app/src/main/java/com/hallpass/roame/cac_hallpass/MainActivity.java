@@ -1,11 +1,15 @@
 package com.hallpass.roame.cac_hallpass;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
 import com.hallpass.roame.cac_hallpass.models.MainModel;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements FragCommunication{
 
@@ -32,19 +36,38 @@ public class MainActivity extends AppCompatActivity implements FragCommunication
 
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_display, mViewModel.cFragment)
+                .replace(R.id.top_bar_container, mViewModel.HFragment)
                 .replace(R.id.nav_container, mViewModel.NBFragment)
+                .replace(R.id.fragment_display, mViewModel.cFragment)
                 .commit();
     }
 
     private void setupWindow(){
-        int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        final int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
                 | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
                 | View.SYSTEM_UI_FLAG_IMMERSIVE;
-        decorView.setSystemUiVisibility(uiOptions);
+
+
+        //" ... it's more like a big ball of wibbly wobbly... time-y wimey... stuff."
+        final Handler handler = new Handler();
+        Timer timer = new Timer();
+
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        decorView.setSystemUiVisibility(uiOptions);
+                    }
+                });
+            }
+        };
+
+        timer.schedule(task, 1000);
     }
 
 
@@ -59,8 +82,7 @@ public class MainActivity extends AppCompatActivity implements FragCommunication
                 break;
 
             case "settings":
-                /*mViewModel.setcFragment(mViewModel.SettingsFragment);
-                        */
+                mViewModel.setcFragment(mViewModel.SFragment);
                 break;
 
             default:

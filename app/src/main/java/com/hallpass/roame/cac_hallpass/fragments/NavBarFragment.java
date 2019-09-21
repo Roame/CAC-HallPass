@@ -63,21 +63,21 @@ public class NavBarFragment extends Fragment {
 
     private void updateNavBar(String selected){
         if(selected == sHome){
-            homeIcon.setBackgroundColor(Color.parseColor("#3dcc79"));
+            homeIcon.setBackgroundColor(Color.parseColor("#629ee1"));
         } else {
-            homeIcon.setBackgroundColor(Color.parseColor("#636363"));
+            homeIcon.setBackgroundColor(Color.parseColor("#666666"));
         }
 
         if(selected == sPass){
-            passIcon.setBackgroundColor(Color.parseColor("#3dcc79"));
+            passIcon.setBackgroundColor(Color.parseColor("#629ee1"));
         } else {
-            passIcon.setBackgroundColor(Color.parseColor("#636363"));
+            passIcon.setBackgroundColor(Color.parseColor("#666666"));
         }
 
         if(selected == sSettings){
-            settingsIcon.setBackgroundColor(Color.parseColor("#3dcc79"));
+            settingsIcon.setBackgroundColor(Color.parseColor("#629ee1"));
         } else {
-            settingsIcon.setBackgroundColor(Color.parseColor("#636363"));
+            settingsIcon.setBackgroundColor(Color.parseColor("#666666"));
         }
     }
 }
