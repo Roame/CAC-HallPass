@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.hallpass.roame.cac_hallpass.fragments.PassTimerFragment;
+import com.hallpass.roame.cac_hallpass.models.BasicPass;
 import com.hallpass.roame.cac_hallpass.models.MainModel;
 
 import java.util.Timer;
@@ -20,7 +22,6 @@ public class MainActivity extends AppCompatActivity implements FragCommunication
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //decorView is slightly bugged right now. Hides the phone's nav bar well, but maybe a little too well
         decorView = getWindow().getDecorView();
         decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener(){
             @Override
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements FragCommunication
     public void navSelection(String selected) {
         switch(selected){
             case "pass":
-                mViewModel.setcFragment(mViewModel.PSFragment);
+                mViewModel.setcFragment(mViewModel.cPassTab);
                 break;
 
             case "settings":
@@ -92,6 +93,32 @@ public class MainActivity extends AppCompatActivity implements FragCommunication
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_display, mViewModel.cFragment)
+                .commit();
+    }
+
+    @Override
+    public void passInput(BasicPass pass) {
+        mViewModel.currentPass = pass;
+
+        mViewModel.PTFragment.setViewModel(mViewModel);
+
+        mViewModel.cPassTab = mViewModel.PTFragment;
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_display, mViewModel.cPassTab)
+                .commit();
+    }
+
+    @Override
+    public void resetPass(boolean reset) {
+        mViewModel.currentPass = null;
+
+        if(reset){
+            mViewModel.PSFragment.clearInputs();
+        }
+
+        mViewModel.cPassTab = mViewModel.PSFragment;
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_display, mViewModel.cPassTab)
                 .commit();
     }
 }

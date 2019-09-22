@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="4dp"
-            android:text="prompt1:"
+            android:text="Current Location:"
             android:textSize="24dp"/>
 
         <EditText
@@ -30,8 +30,7 @@
             android:layout_height="wrap_content"
             android:paddingRight="4dp"
             android:paddingLeft="4dp"
-            android:layout_marginBottom="4dp"
-            android:hint="(response here)" />
+            android:layout_marginBottom="4dp"/>
 
 
 
@@ -40,17 +39,49 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="4dp"
-            android:text="prompt2:"
+            android:text="Destination:"
             android:textSize="24dp"/>
 
         <EditText
-            android:id = "@+id/prompt2"
+            android:id = "@+id/destination"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingRight="4dp"
             android:paddingLeft="4dp"
-            android:layout_marginBottom="4dp"
-            android:hint="(response here)"/>
+            android:layout_marginBottom="4dp"/>
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="Time Allowed (in minutes):"
+            android:textSize="24dp"/>
+
+        <EditText
+            android:id = "@+id/time_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="4dp"
+            android:paddingLeft="4dp"
+            android:layout_marginBottom="4dp"/>
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:gravity="center_vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_height="5dp"
+                android:background="#629ee1"/>
+        </LinearLayout>
 
 
 
@@ -59,17 +90,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="4dp"
-            android:text="prompt3:"
+            android:text="Teacher Authorization:"
             android:textSize="24dp"/>
 
         <EditText
-            android:id = "@+id/prompt3"
+            android:id = "@+id/teacher_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingRight="4dp"
             android:paddingLeft="4dp"
             android:layout_marginBottom="4dp"
-            android:hint="(response here)"/>
+            android:inputType="textPassword"/>
 
 
 

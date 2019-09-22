@@ -12,15 +12,20 @@ import com.hallpass.roame.cac_hallpass.fragments.SettingsFragment;
 
 public class MainModel extends ViewModel {
 
-    public Fragment NBFragment = new NavBarFragment();
-    public Fragment HFragment = new HeaderFragment();
+    public NavBarFragment NBFragment = new NavBarFragment();
+    public HeaderFragment HFragment = new HeaderFragment();
 
-    public Fragment HomeFragment = new HomePageFragment();
-    public Fragment PSFragment = new PassFormFragment();
-    public Fragment PTFragment = new PassTimerFragment();
-    public Fragment SFragment = new SettingsFragment();
+    public HomePageFragment HomeFragment = new HomePageFragment();
+    public PassFormFragment PSFragment = new PassFormFragment();
+    public PassTimerFragment PTFragment = new PassTimerFragment();
+    public SettingsFragment SFragment = new SettingsFragment();
 
     public Fragment cFragment = HomeFragment;
+    public Fragment cPassTab = PSFragment;
+
+
+    public BasicPass currentPass;
+
 
 
     public Fragment getcFragment(){

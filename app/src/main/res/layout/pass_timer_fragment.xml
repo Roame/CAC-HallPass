@@ -4,5 +4,89 @@
     android:layout_height="match_parent"
     android:background="#ffffff">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:gravity="center_horizontal"
+        android:textSize="48dp"
+        android:text="Pass"/>
+
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="Origin: "
+        android:textSize="32dp"/>
+
+    <TextView
+        android:id="@+id/origin_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="32dp"
+        android:paddingRight="8dp"
+        android:layout_marginBottom="16dp"
+        android:textColor="#629ee1"
+        android:text="(Origin)"
+        android:textSize="32dp"/>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="Destination: "
+        android:textSize="32dp"/>
+
+    <TextView
+        android:id="@+id/destination_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="32dp"
+        android:paddingRight="8dp"
+        android:layout_marginBottom="16dp"
+        android:textColor="#629ee1"
+        android:text="(Destination)"
+        android:textSize="32dp"/>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="Time Remaining: "
+        android:textSize="32dp"/>
+
+    <TextView
+        android:id="@+id/time_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="32dp"
+        android:paddingRight="8dp"
+        android:layout_marginBottom="16dp"
+        android:textColor="#629ee1"
+        android:text="(Time)"
+        android:textSize="32dp"/>
+
+
+    <Button
+        android:id="@+id/back_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Back"
+        android:textSize="24dp"/>
+
+
+
 
 </LinearLayout>
