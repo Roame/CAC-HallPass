@@ -1,48 +1,77 @@
 package com.hallpass.roame.cac_hallpass.models;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class BasicPass {
 
-    private String origin;
-    private String destination;
-    private int mTime;
+    public String origin;
+    public String destination;
+    public  int mTime, sTime;
+
+    private Timer timer;
+    private timerCommunication TC;
 
 
-    public BasicPass(String origin, String destination, int mTime){
-        this.origin = origin;
-        this.destination = destination;
-        this.mTime = mTime;
+    public interface timerCommunication {
+        void sendTime(String cTime);
+        void timeExpired();
+    }
+
+    public void setTimeComms(timerCommunication timeComm){
+        TC = timeComm;
     }
 
 
-    public void clearPass(){
-        origin = null;
-        destination = null;
-        mTime = 0;
+
+
+    public String getTime(){
+        if(sTime < 10){
+            return (mTime + ":0" + sTime);
+        } else {
+            return (mTime + ":" + sTime);
+        }
+    }
+
+    public void startTimer(){
+        timer = new Timer();
+        TC.sendTime(getTime());
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                updateTime();
+                TC.sendTime(getTime());
+            }
+        };
+
+        timer.scheduleAtFixedRate(task, 1000, 1000);
+    }
+
+    public void stopTimer(){
+        timer.cancel();
+        timer.purge();
+    }
+
+
+    private void updateTime(){
+        if(sTime>0){
+            sTime--;
+        } else if(mTime > 0) {
+            mTime--;
+            sTime = 59;
+        } else {
+            //Timer is finished
+            stopTimer();
+            TC.timeExpired();
+        }
     }
 
 
 
-    public String getOrigin() {
-        return origin;
-    }
 
-    public void setOrigin(String origin) {
-        this.origin = origin;
-    }
 
-    public String getDestination() {
-        return destination;
-    }
 
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
 
-    public int getmTime() {
-        return mTime;
-    }
 
-    public void setmTime(int mTime) {
-        this.mTime = mTime;
-    }
+
 }

@@ -23,8 +23,8 @@ public class MainModel extends ViewModel {
     public Fragment cFragment = HomeFragment;
     public Fragment cPassTab = PSFragment;
 
+    public BasicPass cPass = new BasicPass();
 
-    public BasicPass currentPass;
 
 
 

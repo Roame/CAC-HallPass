@@ -52,20 +52,62 @@
 
 
 
+
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="4dp"
-            android:text="Time Allowed (in minutes):"
+            android:text="Time Allowed:"
             android:textSize="24dp"/>
 
-        <EditText
-            android:id = "@+id/time_input"
+
+
+
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingRight="4dp"
-            android:paddingLeft="4dp"
-            android:layout_marginBottom="4dp"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Minutes:"
+                android:textSize="18dp"/>
+
+            <EditText
+                android:id = "@+id/minutes_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingRight="4dp"
+                android:paddingLeft="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="1"
+                android:inputType="number"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seconds:"
+                android:textSize="18dp"/>
+
+            <EditText
+                android:id = "@+id/seconds_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingRight="4dp"
+                android:paddingLeft="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="1"
+                android:inputType="number"/>
+
+
+        </LinearLayout>
+
+
 
 
 

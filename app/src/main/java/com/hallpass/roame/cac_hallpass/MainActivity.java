@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.GestureDetector;
 import android.view.View;
 
 import com.hallpass.roame.cac_hallpass.fragments.PassTimerFragment;
@@ -34,6 +35,9 @@ public class MainActivity extends AppCompatActivity implements FragCommunication
 
 
         mViewModel = ViewModelProviders.of(this).get(MainModel.class);
+        mViewModel.PSFragment.setPass(mViewModel.cPass);
+        mViewModel.PTFragment.setPass(mViewModel.cPass);
+        mViewModel.cPass.setTimeComms(mViewModel.PTFragment);
 
 
         getSupportFragmentManager().beginTransaction()
@@ -96,29 +100,24 @@ public class MainActivity extends AppCompatActivity implements FragCommunication
                 .commit();
     }
 
+
+
     @Override
-    public void passInput(BasicPass pass) {
-        mViewModel.currentPass = pass;
-
-        mViewModel.PTFragment.setViewModel(mViewModel);
-
-        mViewModel.cPassTab = mViewModel.PTFragment;
+    public void swapToPass() {
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_display, mViewModel.cPassTab)
+                .replace(R.id.fragment_display, mViewModel.PTFragment)
                 .commit();
+        mViewModel.cPassTab = mViewModel.PTFragment;
+        mViewModel.cPass.startTimer();
     }
 
     @Override
-    public void resetPass(boolean reset) {
-        mViewModel.currentPass = null;
-
-        if(reset){
-            mViewModel.PSFragment.clearInputs();
-        }
-
-        mViewModel.cPassTab = mViewModel.PSFragment;
+    public void swapToForm() {
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_display, mViewModel.cPassTab)
+                .replace(R.id.fragment_display, mViewModel.PSFragment)
                 .commit();
+        mViewModel.cPassTab = mViewModel.PSFragment;
+
+        mViewModel.cPass.stopTimer();
     }
 }

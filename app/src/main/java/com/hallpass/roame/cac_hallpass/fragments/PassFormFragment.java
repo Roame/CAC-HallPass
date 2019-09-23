@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+
 import com.hallpass.roame.cac_hallpass.FragCommunication;
 import com.hallpass.roame.cac_hallpass.R;
 import com.hallpass.roame.cac_hallpass.models.BasicPass;
@@ -18,14 +19,16 @@ import com.hallpass.roame.cac_hallpass.models.BasicPass;
 public class PassFormFragment extends Fragment {
     String password = "cya";
 
-    FragCommunication FC;
-
     EditText cLocationI;
     EditText destinationI;
-    EditText timeI;
+    EditText mTimeI, sTimeI;
 
     EditText teacherI;
     Button submitBTN;
+
+    private BasicPass pass;
+
+    FragCommunication FC;
 
 
     @Nullable
@@ -34,7 +37,9 @@ public class PassFormFragment extends Fragment {
         View v = inflater.inflate(R.layout.pass_form_fragment, container, false);
         cLocationI = v.findViewById(R.id.current_location);
         destinationI = v.findViewById(R.id.destination);
-        timeI = v.findViewById(R.id.time_input);
+
+        mTimeI = v.findViewById(R.id.minutes_input);
+        sTimeI = v.findViewById(R.id.seconds_input);
 
         teacherI = v.findViewById(R.id.teacher_input);
         submitBTN = v.findViewById(R.id.submit_btn);
@@ -50,48 +55,50 @@ public class PassFormFragment extends Fragment {
         FC = (FragCommunication) context;
     }
 
+    public void setPass(BasicPass cPass){
+        pass = cPass;
+    }
 
 
     private View.OnClickListener submitListener(){
-        View.OnClickListener listener  = new View.OnClickListener() {
+        View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(teacherI.getText().toString().equals(password)) {
-                    FC.passInput(recordInputs());
+                if (teacherI.getText().toString().equals(password)){
+                    updatePass();
+                    FC.swapToPass();
                     teacherI.getText().clear();
                 }
             }
         };
-        return listener;
+        return  listener;
     }
 
 
-    private BasicPass recordInputs(){
-        int timeInput;
-        try {
-            timeInput = Integer.valueOf(timeI.getText().toString());
-        } catch (NumberFormatException e) {
-            timeInput = 0;
-            System.out.println("Error thrown");
+
+    private BasicPass updatePass(){
+        pass.origin = cLocationI.getText().toString();
+        pass.destination = destinationI.getText().toString();
+
+        int secondsI = 0;
+        if(!sTimeI.getText().toString().equals("")) {
+            secondsI = Integer.valueOf(sTimeI.getText().toString());
+            if (secondsI > 59) {
+                secondsI = 59;
+            }
         }
 
+        int minutesI = 0;
+        if(!mTimeI.getText().toString().equals("")) {
+            minutesI = Integer.valueOf(mTimeI.getText().toString());
+        }
 
-        BasicPass pass = new BasicPass(
-                cLocationI.getText().toString(),
-                destinationI.getText().toString(),
-                timeInput
+        pass.sTime = secondsI;
+        pass.mTime = minutesI;
 
-        );
         return pass;
     }
-
-    public void clearInputs(){
-        cLocationI.getText().clear();
-        destinationI.getText().clear();
-        timeI.getText().clear();
-        teacherI.getText().clear();
-    }
-
-
-
 }
+
+
+

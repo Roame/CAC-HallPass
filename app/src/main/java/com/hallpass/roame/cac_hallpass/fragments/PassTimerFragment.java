@@ -2,6 +2,7 @@ package com.hallpass.roame.cac_hallpass.fragments;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -13,46 +14,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+
 import com.hallpass.roame.cac_hallpass.FragCommunication;
 import com.hallpass.roame.cac_hallpass.R;
 import com.hallpass.roame.cac_hallpass.models.BasicPass;
-import com.hallpass.roame.cac_hallpass.models.MainModel;
 
-import java.util.Timer;
-import java.util.TimerTask;
 
-public class PassTimerFragment extends Fragment {
+public class PassTimerFragment extends Fragment implements BasicPass.timerCommunication {
 
     private TextView originText, destinationText, timeText;
     private Button backBtn;
+    BasicPass cPass;
 
     private Handler handler = new Handler();
-    private Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            updateTime();
-        }
-    };
-    private Timer timer;
-    private int interval;
+    MediaPlayer mp;
 
 
-    private BasicPass cPass;
-
-    private MainModel cViewModel;
-    private FragCommunication FC;
-
-    public void setViewModel(MainModel model){
-        cViewModel = model;
-    }
-
-
-    public static PassTimerFragment newInstance(){
-        PassTimerFragment tPTFragment = new PassTimerFragment();
-        return tPTFragment;
-    }
-
-
+    FragCommunication FC;
 
     @Nullable
     @Override
@@ -65,18 +43,9 @@ public class PassTimerFragment extends Fragment {
 
         backBtn = v. findViewById(R.id.back_btn);
 
-        updatePass(cViewModel);
+        backBtn.setOnClickListener(backBtnListener());
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FC.resetPass(false);
-                expireTimer();
-                clearScreen();
-            }
-        });
-
-
+        displayInfo();
         return v;
     }
 
@@ -84,62 +53,55 @@ public class PassTimerFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         FC = (FragCommunication) context;
+        mp = MediaPlayer.create(context, R.raw.beep);
+        mp.setLooping(true);
+    }
+
+    public void setPass(BasicPass cPass){
+        this.cPass = cPass;
     }
 
 
-    public void clearScreen(){
-        originText.setText("");
-        destinationText.setText("");
-        timeText.setText("");
+    private View.OnClickListener backBtnListener(){
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cPass.stopTimer();
+                mp.stop();
+                mp.release();
+                FC.swapToForm();
+            }
+        };
+
+        return listener;
     }
 
-    public void updatePass(MainModel mainModel){
-        originText.setText(mainModel.currentPass.getOrigin());
-        destinationText.setText(mainModel.currentPass.getDestination());
-        runTimer(mainModel);
-    }
-
-
-    public void runTimer(MainModel mainModel){
-        interval = mainModel.currentPass.getmTime();
-        timer = new Timer();
-
-        if(interval == 0){
-            expireTimer();
-        } else {
-            timeText.setText((interval + " minutes"));
-
-            TimerTask task = new TimerTask() {
-                @Override
-                public void run() {
-                    handler.post(runnable);
-                }
-            };
-
-            timer.scheduleAtFixedRate(task, toMilliseconds(1), toMilliseconds(1));
-        }
-    }
-
-    private void updateTime(){
-        interval--;
-        cViewModel.currentPass.setmTime(interval);
-        if(interval == 0){
-            expireTimer();
-        } else {
-            timeText.setText((interval + " minutes"));
-        }
-    }
-
-    private void expireTimer(){
-        timer.cancel();
-        handler.removeCallbacks(runnable);
-        timeText.setText("Pass expired");
+    public void displayInfo() {
+        originText.setText(cPass.origin);
+        destinationText.setText(cPass.destination);
     }
 
 
-    public long toMilliseconds(int minutes){
-        return (minutes*60*1000);
+
+    @Override
+    public void sendTime(final String cTime) {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                timeText.setText(cTime);
+            }
+        });
     }
 
+    @Override
+    public void timeExpired() {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                timeText.setText("Time Expired");
+                mp.start();
+            }
+        }, 100);
+    }
 
 }
