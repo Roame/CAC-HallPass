@@ -24,7 +24,7 @@ public class PassFormFragment extends Fragment {
     EditText mTimeI, sTimeI;
 
     EditText teacherI;
-    Button submitBTN;
+    Button submitBTN, clearBTN;
 
     private BasicPass pass;
 
@@ -43,8 +43,10 @@ public class PassFormFragment extends Fragment {
 
         teacherI = v.findViewById(R.id.teacher_input);
         submitBTN = v.findViewById(R.id.submit_btn);
+        clearBTN = v.findViewById(R.id.clear_btn);
 
         submitBTN.setOnClickListener(submitListener());
+        clearBTN.setOnClickListener(clearListener());
 
         return v;
     }
@@ -72,6 +74,20 @@ public class PassFormFragment extends Fragment {
             }
         };
         return  listener;
+    }
+
+    private View.OnClickListener clearListener(){
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cLocationI.getText().clear();
+                destinationI.getText().clear();
+                mTimeI.getText().clear();
+                sTimeI.getText().clear();
+                teacherI.getText().clear();
+            }
+        };
+        return listener;
     }
 
 

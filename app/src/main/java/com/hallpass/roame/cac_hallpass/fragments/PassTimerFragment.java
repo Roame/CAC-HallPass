@@ -20,10 +20,12 @@ import com.hallpass.roame.cac_hallpass.R;
 import com.hallpass.roame.cac_hallpass.models.BasicPass;
 
 import java.io.IOException;
+import java.sql.Time;
 
 
 public class PassTimerFragment extends Fragment implements BasicPass.timerCommunication {
     private String password  = "cya";
+    private String ctimeText = "";
 
     private TextView originText, destinationText, timeText;
     private EditText teacherDismiss;
@@ -50,6 +52,7 @@ public class PassTimerFragment extends Fragment implements BasicPass.timerCommun
         backBtn = v. findViewById(R.id.back_btn);
 
         backBtn.setOnClickListener(exitBtnListener());
+        timeText.setText(ctimeText);
 
         displayInfo();
         return v;
@@ -59,8 +62,10 @@ public class PassTimerFragment extends Fragment implements BasicPass.timerCommun
     public void onAttach(Context context) {
         super.onAttach(context);
         FC = (FragCommunication) context;
-        mp = MediaPlayer.create(context, R.raw.beep);
-        mp.setLooping(true);
+        if(mp == null) {
+            mp = MediaPlayer.create(context, R.raw.beep);
+            mp.setLooping(true);
+        }
     }
 
 
@@ -102,6 +107,7 @@ public class PassTimerFragment extends Fragment implements BasicPass.timerCommun
             @Override
             public void run() {
                 timeText.setText(cTime);
+                ctimeText = cTime;
             }
         });
     }
@@ -112,6 +118,7 @@ public class PassTimerFragment extends Fragment implements BasicPass.timerCommun
             @Override
             public void run() {
                 timeText.setText("Time Expired");
+                ctimeText = "Time Expired";
                 mp.start();
             }
         }, 100);
