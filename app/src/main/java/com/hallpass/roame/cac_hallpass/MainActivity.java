@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements FragCommunication
 
 
         mViewModel = ViewModelProviders.of(this).get(MainModel.class);
-        mViewModel.PSFragment.setPass(mViewModel.cPass);
+        mViewModel.PFFragment.setPass(mViewModel.cPass);
         mViewModel.PTFragment.setPass(mViewModel.cPass);
         mViewModel.cPass.setTimeComms(mViewModel.PTFragment);
 
@@ -114,9 +114,9 @@ public class MainActivity extends AppCompatActivity implements FragCommunication
     @Override
     public void swapToForm() {
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_display, mViewModel.PSFragment)
+                .replace(R.id.fragment_display, mViewModel.PFFragment)
                 .commit();
-        mViewModel.cPassTab = mViewModel.PSFragment;
+        mViewModel.cPassTab = mViewModel.PFFragment;
 
         mViewModel.cPass.stopTimer();
     }

@@ -16,12 +16,12 @@ public class MainModel extends ViewModel {
     public HeaderFragment HFragment = new HeaderFragment();
 
     public HomePageFragment HomeFragment = new HomePageFragment();
-    public PassFormFragment PSFragment = new PassFormFragment();
+    public PassFormFragment PFFragment = new PassFormFragment();
     public PassTimerFragment PTFragment = new PassTimerFragment();
     public SettingsFragment SFragment = new SettingsFragment();
 
     public Fragment cFragment = HomeFragment;
-    public Fragment cPassTab = PSFragment;
+    public Fragment cPassTab = PFFragment;
 
     public BasicPass cPass = new BasicPass();
 

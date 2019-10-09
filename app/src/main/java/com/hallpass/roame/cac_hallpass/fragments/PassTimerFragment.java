@@ -1,7 +1,6 @@
 package com.hallpass.roame.cac_hallpass.fragments;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 
@@ -19,10 +19,14 @@ import com.hallpass.roame.cac_hallpass.FragCommunication;
 import com.hallpass.roame.cac_hallpass.R;
 import com.hallpass.roame.cac_hallpass.models.BasicPass;
 
+import java.io.IOException;
+
 
 public class PassTimerFragment extends Fragment implements BasicPass.timerCommunication {
+    private String password  = "cya";
 
     private TextView originText, destinationText, timeText;
+    private EditText teacherDismiss;
     private Button backBtn;
     BasicPass cPass;
 
@@ -41,9 +45,11 @@ public class PassTimerFragment extends Fragment implements BasicPass.timerCommun
         destinationText = v.findViewById(R.id.destination_textview);
         timeText = v.findViewById(R.id.time_textview);
 
+        teacherDismiss = v.findViewById(R.id.teacher_dismiss);
+
         backBtn = v. findViewById(R.id.back_btn);
 
-        backBtn.setOnClickListener(backBtnListener());
+        backBtn.setOnClickListener(exitBtnListener());
 
         displayInfo();
         return v;
@@ -57,30 +63,37 @@ public class PassTimerFragment extends Fragment implements BasicPass.timerCommun
         mp.setLooping(true);
     }
 
+
+
     public void setPass(BasicPass cPass){
         this.cPass = cPass;
     }
 
 
-    private View.OnClickListener backBtnListener(){
+    private View.OnClickListener exitBtnListener(){
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cPass.stopTimer();
-                mp.stop();
-                mp.release();
-                FC.swapToForm();
+                if(teacherDismiss.getText().toString().equals(password)) {
+                    cPass.stopTimer();
+                    stopMedia();
+                    teacherDismiss.getText().clear();
+                    FC.swapToForm();
+                }
             }
         };
-
         return listener;
     }
 
-    public void displayInfo() {
+    private void displayInfo() {
         originText.setText(cPass.origin);
         destinationText.setText(cPass.destination);
     }
 
+    private void stopMedia(){
+        mp.release();
+        mp = null;
+    }
 
 
     @Override
@@ -103,5 +116,4 @@ public class PassTimerFragment extends Fragment implements BasicPass.timerCommun
             }
         }, 100);
     }
-
 }
